@@ -150,7 +150,7 @@ jspm_packages/
 .vscode-test
 
 # Scripts
-backend/scripts/
+scripts/
 
 # Backend specific
 celerybeat-schedule
@@ -186,3 +186,4 @@ coverage/
 # Agent settings
 AGENTS.md
 .opencode
+summary.md

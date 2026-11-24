@@ -109,7 +109,7 @@ docker-compose up --build
 | Frontend | http://localhost:5173 | SaveStack web app |
 | API | http://localhost:5000 | REST API endpoints |
 | API Docs | http://localhost:5000/docs | Swagger / OpenAPI |
-| Flower | http://localhost:5555 | Celery task monitoring |
+| Flower | http://localhost:5556 | Celery task monitoring |
 | Grafana | http://localhost:3000 | Observability dashboards |
 
 ---
