@@ -5,6 +5,9 @@ networks:
     driver: bridge
   app:
     driver: bridge
+  pgbouncer-net:
+    external: true
+    name: pgbouncer-net
 
 volumes:
   grafana_data:
@@ -44,6 +47,7 @@ services:
     networks:
       - observability
       - app
+      - pgbouncer-net
 
   worker:
     build:
@@ -72,6 +76,7 @@ services:
       - ./backend/src:/app/src
     networks:
       - observability
+      - pgbouncer-net
 
   celery-beat:
     build:
@@ -92,11 +97,12 @@ services:
       - queue
     networks:
       - observability
+      - pgbouncer-net
 
   flower:
     build:
       context: ./backend
-    command: celery -A src.celery.celery flower --port=5555
+    command: celery -A src.celery.celery flower --port=5555 --address=0.0.0.0
     env_file:
       - ./backend/.env
     deploy:
@@ -109,9 +115,10 @@ services:
       - cache
       - queue
     ports:
-      - "5555:5555"
+      - "127.0.0.1:5556:5555"
     networks:
       - observability
+      - pgbouncer-net
 
   frontend:
     build:

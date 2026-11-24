@@ -1,4 +1,5 @@
 from typing import AsyncGenerator
+from uuid import uuid4
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from .config import config
 from src.v1.base.model import Base, BaseModel
@@ -17,6 +18,10 @@ engine = create_async_engine(
     # echo=settings.debug,
     poolclass=NullPool,  # Use NullPool for async operations
     future=True,
+    connect_args={
+        "prepared_statement_name_func": lambda: f"__asyncpg_{uuid4()}",
+        "statement_cache_size": 0,
+    },
 )
 
 
